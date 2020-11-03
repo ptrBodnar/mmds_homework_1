@@ -7,17 +7,10 @@
    },
    "source": [
     "\n",
-    "#  **Running Pyspark in Colab**\n",
+    "# **Running Pyspark in Colab**\n",
     "\n",
     "To run spark in Colab, we need to first install all the dependencies in Colab environment i.e. Apache Spark 2.3.2 with hadoop 2.7, Java 8 and Findspark to locate the spark in the system. The tools installation can be carried out inside the Jupyter Notebook of the Colab. One important note is that if you are new in Spark, it is better to avoid Spark 2.4.0 version since some people have already complained about its compatibility issue with python. \n",
     "Follow the steps to install the dependencies:"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "## gdgd"
    ]
   },
   {
@@ -44,11 +37,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 21,
+   "execution_count": 1,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-11-03T21:32:25.083933Z",
-     "start_time": "2020-11-03T21:32:25.079854Z"
+     "end_time": "2020-11-03T19:02:27.236852Z",
+     "start_time": "2020-11-03T19:02:27.232456Z"
     },
     "id": "v1b8k_OVf2QF"
    },
@@ -70,11 +63,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 22,
+   "execution_count": 2,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-11-03T21:32:25.677149Z",
-     "start_time": "2020-11-03T21:32:25.671448Z"
+     "end_time": "2020-11-03T19:02:33.557796Z",
+     "start_time": "2020-11-03T19:02:27.988493Z"
     },
     "id": "9_Uz1NL4gHFx"
    },
@@ -135,27 +128,26 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 23,
+   "execution_count": 3,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-11-03T21:32:27.584949Z",
-     "start_time": "2020-11-03T21:32:27.580417Z"
+     "end_time": "2020-11-03T19:02:33.768238Z",
+     "start_time": "2020-11-03T19:02:33.560618Z"
     }
    },
    "outputs": [],
    "source": [
     "import pandas as pd\n",
-    "import tqdm\n",
-    "import numpy as np"
+    "import tqdm"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 69,
+   "execution_count": 58,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-11-03T22:35:41.491611Z",
-     "start_time": "2020-11-03T22:35:41.062126Z"
+     "end_time": "2020-11-03T19:26:03.153074Z",
+     "start_time": "2020-11-03T19:26:02.700600Z"
     },
     "id": "zxwi2KauVTTD"
    },
@@ -186,11 +178,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 70,
+   "execution_count": 60,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-11-03T22:35:42.079587Z",
-     "start_time": "2020-11-03T22:35:42.030483Z"
+     "end_time": "2020-11-03T19:26:03.217287Z",
+     "start_time": "2020-11-03T19:26:03.163182Z"
     },
     "id": "13ZurAGz4nwv"
    },
@@ -203,18 +195,18 @@
     "\n",
     "tokenizer = Tokenizer(inputCol=\"name\", outputCol=\"CleanTokens\")\n",
     "stopwordsremover = StopWordsRemover(inputCol=\"CleanTokens\", outputCol=\"CleanTokensStopRemoved\")\n",
-    "hashingTF = HashingTF(inputCol=\"CleanTokensStopRemoved\", outputCol=\"VectorSpace\", numFeatures=50)\n",
+    "hashingTF = HashingTF(inputCol=\"CleanTokensStopRemoved\", outputCol=\"VectorSpace\")\n",
     "idf = IDF(inputCol=\"VectorSpace\", outputCol=\"VectorSpaceIDF\")\n",
     "\n"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 71,
+   "execution_count": 61,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-11-03T22:35:42.608866Z",
-     "start_time": "2020-11-03T22:35:42.225291Z"
+     "end_time": "2020-11-03T19:26:03.618386Z",
+     "start_time": "2020-11-03T19:26:03.265424Z"
     }
    },
    "outputs": [],
@@ -225,11 +217,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 72,
+   "execution_count": 62,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-11-03T22:35:42.672472Z",
-     "start_time": "2020-11-03T22:35:42.611413Z"
+     "end_time": "2020-11-03T19:26:03.703399Z",
+     "start_time": "2020-11-03T19:26:03.622553Z"
     }
    },
    "outputs": [],
@@ -246,28 +238,28 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 107,
+   "execution_count": 63,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-11-03T20:59:59.319432Z",
-     "start_time": "2020-11-03T20:59:58.927268Z"
+     "end_time": "2020-11-03T19:26:04.139758Z",
+     "start_time": "2020-11-03T19:26:03.809053Z"
     }
    },
    "outputs": [],
    "source": [
-    "# brp = BucketedRandomProjectionLSH(inputCol=\"VectorSpaceIDF\", outputCol=\"hashes\", bucketLength=20,\n",
-    "#                                   numHashTables=10)\n",
-    "# model = brp.fit(df_pipe)\n",
-    "# df_pipe = model.transform(df_pipe)\n"
+    "brp = BucketedRandomProjectionLSH(inputCol=\"VectorSpaceIDF\", outputCol=\"hashes\", bucketLength=20,\n",
+    "                                  numHashTables=10)\n",
+    "model = brp.fit(df_pipe)\n",
+    "df_pipe = model.transform(df_pipe)\n"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 73,
+   "execution_count": 64,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-11-03T22:35:44.222733Z",
-     "start_time": "2020-11-03T22:35:43.959336Z"
+     "end_time": "2020-11-03T19:26:04.871315Z",
+     "start_time": "2020-11-03T19:26:04.561575Z"
     }
    },
    "outputs": [],
@@ -278,11 +270,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 74,
+   "execution_count": 65,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-11-03T22:35:45.479648Z",
-     "start_time": "2020-11-03T22:35:44.248893Z"
+     "end_time": "2020-11-03T19:26:05.908675Z",
+     "start_time": "2020-11-03T19:26:04.875565Z"
     }
    },
    "outputs": [],
@@ -292,11 +284,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 75,
+   "execution_count": 66,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-11-03T22:35:45.484800Z",
-     "start_time": "2020-11-03T22:35:45.481439Z"
+     "end_time": "2020-11-03T19:26:05.918495Z",
+     "start_time": "2020-11-03T19:26:05.911958Z"
     }
    },
    "outputs": [],
@@ -306,11 +298,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 31,
+   "execution_count": 67,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-11-03T21:32:34.167671Z",
-     "start_time": "2020-11-03T21:32:34.161390Z"
+     "end_time": "2020-11-03T19:26:05.926479Z",
+     "start_time": "2020-11-03T19:26:05.922586Z"
     }
    },
    "outputs": [],
@@ -364,10 +356,10 @@
     }
    ],
    "source": [
-    "# out = []\n",
-    "# for key in tqdm.notebook.tqdm(looking_for):\n",
-    "#     neigh = find_neighbours(test_prepared, key, 6, 'hashes')\n",
-    "#     out.append(neigh)"
+    "out = []\n",
+    "for key in tqdm.notebook.tqdm(looking_for):\n",
+    "    neigh = find_neighbours(test_prepared, key, 6, 'hashes')\n",
+    "    out.append(neigh)"
    ]
   },
   {
@@ -375,6 +367,20 @@
    "metadata": {},
    "source": [
     "It's slow anyway"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 69,
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2020-11-03T19:53:09.466196Z",
+     "start_time": "2020-11-03T19:53:09.462816Z"
+    }
+   },
+   "outputs": [],
+   "source": [
+    "import numpy as np"
    ]
   },
   {
@@ -468,21 +474,39 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 85,
+<<<<<<< HEAD
+   "execution_count": 43,
    "metadata": {
     "ExecuteTime": {
-     "end_time": "2020-11-03T22:46:44.992587Z",
-     "start_time": "2020-11-03T22:46:44.977755Z"
+     "end_time": "2020-11-03T19:10:47.778300Z",
+     "start_time": "2020-11-03T19:10:47.773667Z"
     }
    },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[10894127, 10874782, 543342, 43482809, 10127485]"
+      ]
+     },
+     "execution_count": 43,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "test_pd['ground_truth'][5]"
+=======
+   "execution_count": null,
+   "metadata": {},
    "outputs": [],
    "source": [
-    "grid_bucket_length = [2, 10]\n",
-    "grid_num_hash_tables = [1, 10]\n",
+    "grid_bucket_length = [2, 6, 10]\n",
+    "grid_num_hash_tables = [3, 7, 10]\n",
     "\n",
     "def find_neighbours(model_, data, value, number, colName):\n",
     "    result = model_.approxNearestNeighbors(data, value, number, distCol=colName)\n",
-    "    \n",
+    "  \n",
     "    return result.select(\"id\").toPandas()['id'][1:].to_list()\n",
     "\n",
     "def compare_lists(a,b):\n",
@@ -495,7 +519,7 @@
     "    return np.mean(results), np.sum(np.array(results) > 1)/len(b), np.sum(np.array(results) == 5)/len(b), results\n",
     "\n",
     "\n",
-    "def grid_search_lsh(train_data, test_data, grid_bucket_length, grid_num_hash_tables, targets, limit=300):\n",
+    "def grid_search_lsh(train_data, test_data, grid_bucket_length, grid_num_hash_tables, targets, limit=100):\n",
     "    results = []  \n",
     "    for bucket_length in grid_bucket_length:\n",
     "        for n_hash_table in grid_num_hash_tables: \n",
@@ -507,84 +531,21 @@
     "            model = brp.fit(train_data)\n",
     "            print(f'Models params: \\nbucket: {model.getBucketLength()}, n_ht: {model.getNumHashTables()}')\n",
     "            \n",
-    "#             df_pipe = model.transform(train_data)\n",
+    "            df_pipe = model.transform(train_data)\n",
     "            looking_for = targets.VectorSpaceIDF.to_list()\n",
     "            print(f'Calculating LSH for bucket_length={bucket_length} and numHashTables = {n_hash_table}')\n",
     "            test = test_data.limit(limit)\n",
     "            targ = looking_for[:limit]\n",
     "            prediction = []\n",
     "            \n",
-    "            \n",
     "            for key in tqdm.tqdm_notebook(targ):\n",
     "                neigh = find_neighbours(model, test, key, 6, 'hashes')\n",
     "                prediction.append(neigh)\n",
-    "                \n",
+    "\n",
     "            score_a, score_b, score_c, num_neighb = compare_lists(prediction, targets['ground_truth'])\n",
-    "            print(f'Total score: {score_a}, {score_b}, {score_c}\\n {num_neighb[:20]} \\n{prediction[:20]}' )\n",
-    "            results.append([bucket_length, n_hash_table, score_a, score_b, score_c, model])\n",
+    "            print(f'Total score: {score_a}, {score_b}, {score_c}\\n {num_neighb[:20]}')\n",
+    "            results.append([bucket_length, n_hash_table, score_a, score_b, score_c, num_neighb])\n",
     "    return results\n"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {
-    "ExecuteTime": {
-     "start_time": "2020-11-03T22:46:59.899Z"
-    },
-    "scrolled": true
-   },
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Models params: \n",
-      "bucket: 2.0, n_ht: 1\n",
-      "Calculating LSH for bucket_length=2 and numHashTables = 1\n"
-     ]
-    },
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "<ipython-input-85-da23784d9854>:39: TqdmDeprecationWarning: This function will be removed in tqdm==5.0.0\n",
-      "Please use `tqdm.notebook.tqdm` instead of `tqdm.tqdm_notebook`\n",
-      "  for key in tqdm.tqdm_notebook(targ):\n"
-     ]
-    },
-    {
-     "data": {
-      "application/vnd.jupyter.widget-view+json": {
-       "model_id": "59b7d66f48d641a582fdf79716784c95",
-       "version_major": 2,
-       "version_minor": 0
-      },
-      "text/plain": [
-       "HBox(children=(HTML(value=''), FloatProgress(value=0.0, max=4065.0), HTML(value='')))"
-      ]
-     },
-     "metadata": {},
-     "output_type": "display_data"
-    }
-   ],
-   "source": [
-    "res = grid_search_lsh(df_pipe, test_prepared, grid_bucket_length,\n",
-    "                      grid_num_hash_tables, test_pd, limit=test_prepared.count())"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {
-    "ExecuteTime": {
-     "end_time": "2020-11-03T22:38:18.563241Z",
-     "start_time": "2020-11-03T22:37:03.184Z"
-    }
-   },
-   "outputs": [],
-   "source": [
-    "res\n"
    ]
   },
   {
@@ -592,7 +553,10 @@
    "execution_count": null,
    "metadata": {},
    "outputs": [],
-   "source": []
+   "source": [
+    "res = grid_search_lsh(df_pipe, test_prepared, grid_bucket_length, grid_num_hash_tables, test_pd)"
+>>>>>>> 27dba9532c2ffecc27b907072b397527bc312684
+   ]
   }
  ],
  "metadata": {
@@ -617,7 +581,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.8.5"
+   "version": "3.8.2"
   },
   "toc": {
    "base_numbering": 1,
